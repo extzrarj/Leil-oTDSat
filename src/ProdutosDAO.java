@@ -45,7 +45,7 @@ public class ProdutosDAO {
         List<ProdutosDTO> listarProdutos = new ArrayList<>();
 
         try {
-            PreparedStatement st = conn.prepareStatement("SELECT * FROM filmes");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM produtos");
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -55,7 +55,7 @@ public class ProdutosDAO {
                 listarProdutos.add(produto);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter filmes: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao obter produto: " + e.getMessage());
         } finally {
         }
         return listarProdutos;
@@ -78,6 +78,28 @@ public class ProdutosDAO {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao vender produto: " + e.getMessage());
         }
+    }
+
+    public List<ProdutosDTO> listarProdutosVendidos() {
+
+        List<ProdutosDTO> listarProdutosVendidos = new ArrayList<>();
+
+        try {
+             PreparedStatement st = conn.prepareStatement("SELECT * FROM produtos WHERE status = 'Vendido'");
+             ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+             ProdutosDTO produto = new ProdutosDTO();
+             produto.setId(rs.getInt("id")); 
+             produto.setNome(rs.getString("nome"));
+             produto.setValor(rs.getInt("valor"));
+             produto.setStatus(rs.getString("status"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao obter produtos: " + e.getMessage());
+        } finally {
+        }
+        return listarProdutosVendidos;
     }
 
 }

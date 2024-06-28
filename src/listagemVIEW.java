@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -137,12 +138,36 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
+        
+        boolean status;
+        int resposta;
+        
+        ProdutosDAO dao = new ProdutosDAO();
+        ProdutosDTO produto = new ProdutosDTO();
 
+        
+        conectaDAO conectar = new conectaDAO();
+        status = conectar.connectDB();
+
+        if (status == false) {
+            JOptionPane.showMessageDialog(null,"Falha na conexão");
+        } else {
+
+            resposta = dao.venderProdutor(produto);
+
+            if (resposta == 1) {
+
+                JOptionPane.showMessageDialog(null, "Produto vendido com sucesso!");
+                dao.listarProdutosVendidos();
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao vender o produto");
+            }
+        }
     }//GEN-LAST:event_btnVenderActionPerformed
     
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
         //vendasVIEW vendas = new vendasVIEW(); 
-        //vendas.setVisible(true);
+       // vendas.setVisible(true);
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed

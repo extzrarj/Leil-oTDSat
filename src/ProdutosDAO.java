@@ -61,7 +61,7 @@ public class ProdutosDAO {
         return listarProdutos;
     }
 
-    public void venderProdutor(ProdutosDTO produto) {
+    public int venderProdutor(ProdutosDTO produto) {
 
         try {
 
@@ -77,7 +77,7 @@ public class ProdutosDAO {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao vender produto: " + e.getMessage());
-        }
+        } return -1;
     }
 
     public List<ProdutosDTO> listarProdutosVendidos() {
